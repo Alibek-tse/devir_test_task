@@ -1,9 +1,9 @@
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import App from "./App";
 import ErrorPage from "./pages/ErrorPage";
 import MainLayout from "./pages/MainLayout";
 import MainPage from "./pages/MainPage";
 import PostPage from "./pages/PostPage";
+import PostsPage from "./pages/PostsPage";
 
 const MainRoutes = () => {
   return (
@@ -11,7 +11,8 @@ const MainRoutes = () => {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<MainPage />} />
-          <Route path="post" element={<PostPage />}></Route>
+          <Route path="posts" element={<PostsPage />}></Route>
+          <Route path="posts/:id" element={<PostPage />}></Route>
         </Route>
         <Route path="*" element={<ErrorPage />} />
       </Routes>

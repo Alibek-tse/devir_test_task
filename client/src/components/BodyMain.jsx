@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Container, Grid, Stack, styled, Typography } from "@mui/material";
 import image from "../assets/main.jpg";
-import { breakpoints } from "@mui/system";
+import GridCustom from "./GridCustom";
 
 const BoxCustom = styled(Box)`
   background-image: url(${image});
@@ -12,7 +12,6 @@ const BoxCustom = styled(Box)`
 `;
 
 const TypographyCustom = styled(Typography)({
-  color: "white",
   color: "#ecf9d2f2",
 });
 
@@ -27,6 +26,9 @@ const ContainerCustom = styled(Container)(({ theme }) => ({
   [theme.breakpoints.down("xl")]: {
     width: "calc(100% - 50px)",
     marginTop: "50px",
+  },
+  [theme.breakpoints.down("lg")]: {
+    height: "calc(100% - 8vh)",
   },
   [theme.breakpoints.down("md")]: {
     overflowY: "scroll",
@@ -43,7 +45,7 @@ const Title = ({ title = "", subTitile = "", ...props }) => (
       direction="column"
       justifyContent="center"
       alignItems="center"
-      sx={{ pt: 15 }}
+      sx={{ pt: 5 }}
       spacing={2}
     >
       <TypographyCustom sx={{ fontSize: { lg: 60, md: 45, sm: 35, xs: 25 } }}>
@@ -64,18 +66,13 @@ const Content = ({ content = "" }) => (
   <ContainerCustom>
     <Grid container spacing={1} justifyContent="space-between" sx={{ p: 2 }}>
       {content.map((item) => (
-        <Grid
-          item
-          xl={3.5}
-          lg={3.5}
-          md={3.5}
-          sm={3.5}
-          sx={{ textAlign: "center" }}
-          key={item.title}
-        >
+        <GridCustom key={item.title}>
           <Stack direction="column" spacing={2}>
             <Box sx={{ maxWidth: "100%", maxHeight: "100%" }}>
-              <img src={item.img} style={{ width: "100%", height: "180px", borderRadius: '10px' }} />
+              <img
+                src={item.img}
+                style={{ width: "100%", height: "180px", borderRadius: "10px" }}
+              />
             </Box>
             <TypographyCustom
               sx={{
@@ -84,10 +81,10 @@ const Content = ({ content = "" }) => (
                 color: "black",
               }}
             >
-              {item.desc}
+              {item.description}
             </TypographyCustom>
           </Stack>
-        </Grid>
+        </GridCustom>
       ))}
     </Grid>
   </ContainerCustom>

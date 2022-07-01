@@ -7,7 +7,9 @@ const MainLayout = () => {
   return (
     <Box>
       <Header></Header>
-      <Outlet></Outlet>
+      <Box sx={{ pt: "64px" }}>
+        <Outlet></Outlet>
+      </Box>
     </Box>
   );
 };
