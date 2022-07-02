@@ -1,26 +1,41 @@
 import React, { useState } from "react";
 import { useHttp } from "../hooks/http.hooks";
-import { Box, Button, Container, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  IconButton,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import ModalCreatePost from "./ModalCreatePost";
-
+import DeleteIcon from "@mui/icons-material/Delete";
 const PostPage = () => {
   const [posts, setPosts] = useState();
   const [modal, setModal] = useState(false);
   const navigate = useNavigate();
-  
+
   const { loading, request, error } = useHttp();
   const postRequest = async () => {
     try {
-      const data = await request("/api/post/", "GET", null, {});
+      const data = await request("/api/post", "GET", null, {});
       setPosts(data);
+    } catch (error) {}
+  };
+
+  const deletePost = async (e, id) => {
+    e.stopPropagation();
+    try {
+      const deleted = await request(`/api/post/${id}`, "DELETE", null, {});
+      if (deleted) postRequest();
     } catch (error) {}
   };
 
   useEffect(() => {
     postRequest();
-  }, [posts]);
+  }, []);
 
   return (
     <>
@@ -43,14 +58,19 @@ const PostPage = () => {
                 key={item.title}
                 sx={{
                   border: "1px solid black",
-                  borderRadius: '10px',
+                  borderRadius: "10px",
                   p: 2,
                   maxHeight: "8vh",
                   overflow: "hidden",
                 }}
                 onClick={() => navigate(`${item._id}`)}
               >
-                <Typography>{item.title}</Typography>
+                <Stack direction="row" justifyContent="space-between">
+                  <Typography>{item.title}</Typography>
+                  <IconButton onClick={(e) => deletePost(e, item._id)}>
+                    <DeleteIcon />
+                  </IconButton>
+                </Stack>
                 <Typography>{item.description}</Typography>
               </Box>
             );

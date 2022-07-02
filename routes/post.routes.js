@@ -39,13 +39,12 @@ router.post(
 );
 
 // /api/post/
-router.get("/", async (req, res, next) => {
+router.get("/", async (req, res) => {
   // res.send("API WORK");
   try {
-    const posts = await Post.find() 
+    const posts = await Post.find();
     res.json(posts);
   } catch (e) {
-    console.log(e, "E");
     res
       .status(500)
       .json({ message: "Упс что-то пошло не так попробуйте снова..." });
@@ -56,10 +55,37 @@ router.get("/", async (req, res, next) => {
 router.get("/:id", async (req, res) => {
   // res.send("API WORK");
   try {
-    const posts = await Post.findById(req.params.id) 
+    const posts = await Post.findById(req.params.id);
     res.json(posts);
   } catch (e) {
-    console.log(e, "E");
+    res
+      .status(500)
+      .json({ message: "Упс что-то пошло не так попробуйте снова..." });
+  }
+});
+
+// /api/post/:id DELETE
+router.delete("/:id", async (req, res) => {
+  try {
+    const deleted = await Post.findByIdAndDelete(req.params.id);
+    res.json(deleted);
+  } catch (e) {
+    res
+      .status(500)
+      .json({ message: "Упс что-то пошло не так попробуйте снова..." });
+  }
+});
+
+// /api/post/edit/:id
+router.put("/edit/:id", async (req, res) => {
+  try {
+    const { title, description } = req.body;
+    const updated = await Post.findByIdAndUpdate(req.params.id, {
+      title,
+      description,
+    });
+    res.json(updated);
+  } catch (e) {
     res
       .status(500)
       .json({ message: "Упс что-то пошло не так попробуйте снова..." });

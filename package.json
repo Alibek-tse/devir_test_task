@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/Alibek-tse/devir_test_task#readme",
   "dependencies": {
+    "@mui/icons-material": "^5.8.4",
     "config": "^3.3.7",
     "cors": "^2.8.5",
     "express": "^4.18.1",
