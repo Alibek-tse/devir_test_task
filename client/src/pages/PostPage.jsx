@@ -18,7 +18,12 @@ export default function PostPage() {
 
   const updateRequest = async (putData) => {
     try {
-      const data = await request(`/api/post/edit/${params.id}`, "PUT", putData, {});
+      const data = await request(
+        `/api/post/edit/${params.id}`,
+        "PUT",
+        putData,
+        {}
+      );
     } catch (error) {}
   };
 
@@ -89,7 +94,10 @@ export default function PostPage() {
         <Button type="submit" disabled={!isValid || !isDirty}>
           Отправить
         </Button>
-        <Button type="submit" onClick={() => navigate(-1)}>
+        <Button
+          type="submit"
+          onClick={() => navigate(-1)}
+        >
           Отмена
         </Button>
       </form>

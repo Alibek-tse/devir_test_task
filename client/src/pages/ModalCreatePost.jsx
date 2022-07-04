@@ -24,7 +24,7 @@ const BoxCustom = styled(Box)({
   overflow: "hidden",
 });
 
-export default function ModalCreatePost({ open, handleClose }) {
+export default function ModalCreatePost({ open, handleClose, postRequest }) {
   const {
     register,
     handleSubmit,
@@ -33,7 +33,7 @@ export default function ModalCreatePost({ open, handleClose }) {
     reset,
   } = useForm({ mode: "onChange" });
   const { loading, request, error } = useHttp();
-  const postRequest = async (postData) => {
+  const addPost = async (postData) => {
     try {
       const data = await request("/api/post/create", "POST", postData);
       console.log("Data", data);
@@ -45,8 +45,9 @@ export default function ModalCreatePost({ open, handleClose }) {
       title: String(getValues().title),
       description: String(getValues().description),
     };
-    postRequest(result);
+    addPost(result);
     reset();
+    postRequest();
     handleClose(false);
   };
 

@@ -77,7 +77,11 @@ const PostPage = () => {
           })}
         </Stack>
       </Container>
-      <ModalCreatePost open={modal} handleClose={setModal} />
+      <ModalCreatePost
+        open={modal}
+        handleClose={setModal}
+        postRequest={postRequest}
+      />
     </>
   );
 };
